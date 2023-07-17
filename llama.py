@@ -46,7 +46,7 @@ st.write('Current temperature:', temperature_value)
 def model_and_embd():
     #odabir modela 
     access_token = "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"
-    repo_id = "google/flan-t5-base"
+    repo_id = "google/flan-t5-large"
     llm_predictor = LLMPredictor(llm = HuggingFaceHub(
     repo_id=repo_id, 
     model_kwargs= {"temperature": temperature_value, "max_length": 64},
