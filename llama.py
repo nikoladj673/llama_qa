@@ -45,8 +45,8 @@ st.write('Current temperature:', temperature_value)
 @st.cache_resource
 def model_and_embd():
     #odabir modela 
-    access_token = "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"
-    repo_id = "google/flan-t5-large"
+    access_token = "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"
+    repo_id = "google/flan-t5-base"
     llm_predictor = LLMPredictor(llm = HuggingFaceHub(
     repo_id=repo_id, 
     model_kwargs= {"temperature": temperature_value, "max_length": 64},
@@ -65,7 +65,6 @@ def find_source(response):
         if node.score > max_score:
             max_score = node.score
             source = node
-            print(max_score)
         if source.score> 0.3:
             return source.node.metadata.get('filename')
         else:
