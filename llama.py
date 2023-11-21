@@ -1,8 +1,8 @@
 #importovanje
 from llama_index import VectorStoreIndex, SimpleDirectoryReader,ServiceContext, LLMPredictor
 from llama_index import StorageContext, load_index_from_storage
-from langchain import HuggingFaceHub
-from llama_index import LangchainEmbedding
+from langchain.llms import HuggingFaceHub
+# from llama_index import LangchainEmbedding
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain import PromptTemplate
 from llama_index import set_global_service_context
@@ -44,16 +44,19 @@ st.write('Current temperature:', temperature_value)
 
 @st.cache_resource
 def model_and_embd():
-    #odabir modela 
     access_token = "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"
+
     repo_id = "google/flan-t5-large"
     llm_predictor = LLMPredictor(llm = HuggingFaceHub(
     repo_id=repo_id, 
     model_kwargs= {"temperature": temperature_value, "max_length": 64},
     huggingfacehub_api_token= access_token
     ))
-    embed_model = LangchainEmbedding(HuggingFaceEmbeddings())
-    service_context = ServiceContext.from_defaults(llm_predictor= llm_predictor, embed_model=embed_model)
+    
+
+    embed_model = HuggingFaceEmbeddings( model_name="google/flan-t5-large" )
+    service_context = ServiceContext.from_defaults(llm_predictor = llm_predictor, embed_model=embed_model)
+    # optionally set a global service context
     set_global_service_context(service_context)
 
 #za nalazenje source-a odakle je response 
