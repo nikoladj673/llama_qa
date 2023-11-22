@@ -52,8 +52,6 @@ def model_and_embd():
     model_kwargs= {"temperature": temperature_value, "max_length": 64},
     huggingfacehub_api_token= access_token
     ))
-    
-
     embed_model = HuggingFaceEmbeddings( model_name="google/flan-t5-large" )
     service_context = ServiceContext.from_defaults(llm_predictor = llm_predictor, embed_model=embed_model)
     # optionally set a global service context
